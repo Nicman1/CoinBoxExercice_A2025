@@ -10,26 +10,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
     - name: Set up Miniconda
-      uses: conda-incubator/setup-miniconda@v3  # Use maintained action
+      uses: actions/setup-python@v3
       with:
         python-version: 3.10
-        auto-activate-base: false  # Best practice: use a named env instead
-
-    - name: Create environment and install dependencies
+    - name: Install deps
       run: |
-        conda env create -f environment.yml
-        conda activate myenv
-    # Replace 'myenv' by the environment name inside your environment.yml
+        python --m pip install --upgrade pip
+        pip install 
 
     - name: Install any missing pip dependencies
       run: |
-        conda activate myenv
-        pip install -r requirements.txt
+        python -m pip install -r requirements.txt
       # Only use this step if you have extra pip dependencies not in your environment.yml
 
     - name: Test with pytest
       run: |
-        conda activate myenv
-        pytest
+        python -m pytest
